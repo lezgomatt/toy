@@ -1,0 +1,316 @@
+<html>
+
+<head>
+<title>T.O.Y. - Theory of Youth</title>
+
+<style>
+body {
+  background: rgb(175, 110, 245);
+}
+
+#content {
+  margin: auto;
+  position: relative;
+  width: 640px;
+}
+
+#bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#ball {
+  position: absolute;
+  transition: all 1s ease-in;
+  -moz-transition: all 1s ease-in;
+  -webkit-transition: all 1s ease-in;
+}
+
+.instant {
+  -moz-transition: none !important;
+  -webkit-transition: none !important;
+  transition: none !important;
+}
+
+.h1 { top: 80px; }
+.h2 { top: 120px; }
+.h3 { top: 240px; }
+.h4 { top: 362px; }
+.h5 { top: 380px; }
+
+.v1 { left: 70px;  transform: rotate(-720deg); -moz-transform: rotate(-720deg); -webkit-transform: rotate(-720deg);}
+.v2 { left: 190px; transform: rotate(-360deg); -moz-transform: rotate(-360deg); -webkit-transform: rotate(-360deg);}
+.v3 { left: 310px; transform: rotate(0deg); -moz-transform: rotate(0deg); -webkit-transform: rotate(0deg);}
+.v4 { left: 430px; transform: rotate(360deg); -moz-transform: rotate(360deg); -webkit-transform: rotate(360deg);}
+.v5 { left: 550px; transform: rotate(720deg); -moz-transform: rotate(720deg); -webkit-transform: rotate(720deg);}
+
+.hidden { opacity: 0; }
+
+.a1 {
+  top: 70px;
+  left: 190px;
+}
+
+#x1 {
+  position: absolute;
+  top: 145px;
+  left: 162px;
+}
+
+#x2 {
+  position: absolute;
+  top: 265px;
+  left: 282px;
+}
+
+#x3 {
+  position: absolute;
+  top: 145px;
+  left: 402px;
+}
+
+.left {
+  transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+.right {
+  transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.paddle {
+  width: 75px;
+  height: 5px;
+  background: rgb(90, 60, 180);
+  transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  transition-timing-function: cubic-bezier(1.000, 1.405, 0.525, 0.875);
+  -moz-transition-timing-function: cubic-bezier(1.000, 1.405, 0.525, 0.875);
+  -webkit-transition-timing-function: cubic-bezier(1.000, 1.405, 0.525, 0.875);
+}
+
+.pivot {
+  margin: auto;
+  width: 5px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgb(60, 35, 75);
+}
+
+.button {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+}
+
+.enabled {
+  background: rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.disabled {
+  background: rgba(0, 0, 0, 0.1);
+  cursor: auto;
+}
+
+#a {
+  top: 20px;
+  left: 175px;
+}
+
+#b {
+  top: 20px;
+  left: 415px;
+}
+
+#flip1 {
+  top: 165px;
+  left: 175px;
+}
+
+#flip2 {
+  top: 285px;
+  left: 295px;
+}
+
+#flip3 {
+  top: 165px;
+  left: 415px;
+}
+
+</style>
+
+</head>
+
+<body>
+<div id="content">
+  <img id="bg" src="bg.svg">
+  <div id="a" class="button enabled"> </div>
+  <div id="b" class="button enabled"> </div>
+  <div id="flip1" class="button enabled"> </div>
+  <div id="x1" class="paddle left">
+    <div class="pivot"> </div>
+  </div>
+  <div id="flip2" class="button enabled"> </div>
+  <div id="x2" class="paddle left">
+    <div class="pivot"> </div>
+  </div>
+  <div id="flip3" class="button enabled"> </div>
+  <div id="x3" class="paddle left">
+    <div class="pivot"> </div>
+  </div>
+  <img id="ball" class="h5 v2" src="ball.svg">
+</div>
+
+<script>
+  var configuration = [null, 'left', 'left', 'left'];
+  var inProgress = false;
+  var position = 'h0 v0';
+  var toFlip = [];
+  var buttons = [];
+  var ball = document.getElementById('ball');
+
+  function flipper(n) {
+    return function() {
+      if(inProgress) return;
+
+      if(configuration[n] == 'left')
+        configuration[n] = 'right'
+      else /* configuration[n] == 'right' */
+        configuration[n] = 'left';
+      var el = document.getElementById('x' + n);
+      el.className = 'paddle ' + configuration[n];
+    }
+  }
+  for(var i = 1; i <= 3; i++) {
+    var el = document.getElementById('flip' + i);
+    el.addEventListener('click', flipper(i));
+    buttons.push(el);
+  }
+
+  var el;
+  el = document.getElementById('a');
+  el.addEventListener('click', function() { drop('a') });
+  buttons.push(el);
+  el = document.getElementById('b');
+  el.addEventListener('click', function() { drop('b') });
+  buttons.push(el);
+
+  function drop(letter) {
+    if(inProgress) return;
+    inProgress = true;
+    disableButtons()
+    if(letter === 'a') position = 'h1 v2';
+    if(letter === 'b') position = 'h1 v4';
+    ball.className = "instant " + position;
+    magic({propertyName: 'top'});
+  }
+
+  function go(n, l, r) {
+    if(configuration[n] === 'left')
+      position = l;
+    else /* configuration[n] === 'right' */
+      position = r;
+    toFlip.push(n);
+  }
+
+  for(var i = 1; i <= 3; i++) {
+    var el = document.getElementById('x' + i);
+    el.addEventListener('transitionend', updateConfig);
+    el.addEventListener('webkitTransitionEnd', updateConfig);
+  }
+
+  function updateConfig() {
+    for(var i = 1; i <= 3; i++) {
+      var el = document.getElementById('x' + i);
+      configuration[i] = el.className.split(' ')[1];
+    }
+  }
+
+  function flip(dir) {
+    if(dir === 'left') return 'right';
+    if(dir === 'right') return 'left';
+  }
+
+  function flipAway() {
+    var n;
+    while(n = toFlip.pop()) {
+      var el = document.getElementById('x' + n);
+      el.className = 'paddle ' + flip(configuration[n]);
+    }
+  }
+
+  ball.addEventListener('transitionend', magic, true);
+  ball.addEventListener('webkitTransitionEnd', magic, true);
+
+  function magic(evt) {
+    if(evt.propertyName !== 'top') return;
+    flipAway();
+    switch(position) {
+    // start
+    case 'h1 v2': 
+      position = 'h2 v2';
+    break;
+    case 'h1 v4': 
+      position = 'h2 v4';
+    break;
+
+    // x1 x3
+    case 'h2 v2':
+      go(1, 'h3 v1', 'h3 v3');
+    break;
+    case 'h2 v4': 
+      go(3, 'h3 v3', 'h3 v5');
+    break;
+
+    // x2 + corners
+    case 'h3 v1': 
+      position = 'h4 v2';
+    break;
+    case 'h3 v3': 
+      go(2, 'h4 v2', 'h4 v4');
+    break;
+    case 'h3 v5': 
+      position = 'h4 v4';
+    break;
+
+    // final fall
+    case 'h4 v2': 
+      position = 'h5 v2';
+    break;
+    case 'h4 v4': 
+      position = 'h5 v4';
+    break;
+
+    // end
+    case 'h5 v2': 
+    case 'h5 v4': 
+      inProgress = false;
+      enableButtons();
+      // making the ball fade?
+    break;
+    }
+    window.setTimeout(function(){ball.className = position}, 100);
+  }
+
+  function enableButtons() {
+    for(var i = 0, len = buttons.length; i < len; i++) {
+      buttons[i].className = 'button enabled';
+    }
+  }
+
+  function disableButtons() {
+    for(var i = 0, len = buttons.length; i < len; i++) {
+      buttons[i].className = 'button disabled';
+    }
+  }
+</script>
+
+</body>
+
+</html>
