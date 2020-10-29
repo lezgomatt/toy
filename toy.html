@@ -23,13 +23,9 @@ body {
 #ball {
   position: absolute;
   transition: all 1s ease-in;
-  -moz-transition: all 1s ease-in;
-  -webkit-transition: all 1s ease-in;
 }
 
 .instant {
-  -moz-transition: none !important;
-  -webkit-transition: none !important;
   transition: none !important;
 }
 
@@ -39,11 +35,11 @@ body {
 .h4 { top: 362px; }
 .h5 { top: 380px; }
 
-.v1 { left: 70px;  transform: rotate(-720deg); -moz-transform: rotate(-720deg); -webkit-transform: rotate(-720deg);}
-.v2 { left: 190px; transform: rotate(-360deg); -moz-transform: rotate(-360deg); -webkit-transform: rotate(-360deg);}
-.v3 { left: 310px; transform: rotate(0deg); -moz-transform: rotate(0deg); -webkit-transform: rotate(0deg);}
-.v4 { left: 430px; transform: rotate(360deg); -moz-transform: rotate(360deg); -webkit-transform: rotate(360deg);}
-.v5 { left: 550px; transform: rotate(720deg); -moz-transform: rotate(720deg); -webkit-transform: rotate(720deg);}
+.v1 { left: 70px;  transform: rotate(-720deg); }
+.v2 { left: 190px; transform: rotate(-360deg); }
+.v3 { left: 310px; transform: rotate(0deg); }
+.v4 { left: 430px; transform: rotate(360deg); }
+.v5 { left: 550px; transform: rotate(720deg); }
 
 .hidden { opacity: 0; }
 
@@ -70,27 +66,15 @@ body {
   left: 402px;
 }
 
-.left {
-  transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-}
-.right {
-  transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-}
+.left { transform: rotate(-45deg); }
+.right { transform: rotate(45deg); }
 
 .paddle {
   width: 75px;
   height: 5px;
   background: rgb(90, 60, 180);
   transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  -webkit-transition: all 0.5s;
   transition-timing-function: cubic-bezier(1.000, 1.405, 0.525, 0.875);
-  -moz-transition-timing-function: cubic-bezier(1.000, 1.405, 0.525, 0.875);
-  -webkit-transition-timing-function: cubic-bezier(1.000, 1.405, 0.525, 0.875);
 }
 
 .pivot {
@@ -142,7 +126,6 @@ body {
   top: 165px;
   left: 415px;
 }
-
 </style>
 
 </head>
@@ -253,10 +236,10 @@ body {
     flipAway();
     switch(position) {
     // start
-    case 'h1 v2': 
+    case 'h1 v2':
       position = 'h2 v2';
     break;
-    case 'h1 v4': 
+    case 'h1 v4':
       position = 'h2 v4';
     break;
 
@@ -264,32 +247,32 @@ body {
     case 'h2 v2':
       go(1, 'h3 v1', 'h3 v3');
     break;
-    case 'h2 v4': 
+    case 'h2 v4':
       go(3, 'h3 v3', 'h3 v5');
     break;
 
     // x2 + corners
-    case 'h3 v1': 
+    case 'h3 v1':
       position = 'h4 v2';
     break;
-    case 'h3 v3': 
+    case 'h3 v3':
       go(2, 'h4 v2', 'h4 v4');
     break;
-    case 'h3 v5': 
+    case 'h3 v5':
       position = 'h4 v4';
     break;
 
     // final fall
-    case 'h4 v2': 
+    case 'h4 v2':
       position = 'h5 v2';
     break;
-    case 'h4 v4': 
+    case 'h4 v4':
       position = 'h5 v4';
     break;
 
     // end
-    case 'h5 v2': 
-    case 'h5 v4': 
+    case 'h5 v2':
+    case 'h5 v4':
       inProgress = false;
       enableButtons();
       // making the ball fade?
