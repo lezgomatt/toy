@@ -1,0 +1,122 @@
+body {
+  background: rgb(175, 110, 245);
+}
+
+#content {
+  margin: auto;
+  position: relative;
+  width: 640px;
+}
+
+#bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#ball {
+  position: absolute;
+  transition: all 1s ease-in;
+}
+
+.instant {
+  transition: none !important;
+}
+
+.h1 { top: 80px; }
+.h2 { top: 120px; }
+.h3 { top: 240px; }
+.h4 { top: 362px; }
+.h5 { top: 380px; }
+
+.v1 { left: 70px;  transform: rotate(-720deg); }
+.v2 { left: 190px; transform: rotate(-360deg); }
+.v3 { left: 310px; transform: rotate(0deg); }
+.v4 { left: 430px; transform: rotate(360deg); }
+.v5 { left: 550px; transform: rotate(720deg); }
+
+.hidden { opacity: 0; }
+
+.a1 {
+  top: 70px;
+  left: 190px;
+}
+
+#x1 {
+  position: absolute;
+  top: 145px;
+  left: 162px;
+}
+
+#x2 {
+  position: absolute;
+  top: 265px;
+  left: 282px;
+}
+
+#x3 {
+  position: absolute;
+  top: 145px;
+  left: 402px;
+}
+
+.left { transform: rotate(-45deg); }
+.right { transform: rotate(45deg); }
+
+.paddle {
+  width: 75px;
+  height: 5px;
+  background: rgb(90, 60, 180);
+  transition: all 0.5s;
+  transition-timing-function: cubic-bezier(1.000, 1.405, 0.525, 0.875);
+}
+
+.pivot {
+  margin: auto;
+  width: 5px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgb(60, 35, 75);
+}
+
+.button {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+}
+
+.enabled {
+  background: rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.disabled {
+  background: rgba(0, 0, 0, 0.1);
+  cursor: auto;
+}
+
+#a {
+  top: 20px;
+  left: 175px;
+}
+
+#b {
+  top: 20px;
+  left: 415px;
+}
+
+#flip1 {
+  top: 165px;
+  left: 175px;
+}
+
+#flip2 {
+  top: 285px;
+  left: 295px;
+}
+
+#flip3 {
+  top: 165px;
+  left: 415px;
+}
