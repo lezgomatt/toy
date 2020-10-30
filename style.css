@@ -1,27 +1,20 @@
-body {
-  background: rgb(175, 110, 245);
-}
+body { background: rgb(175, 110, 245); }
 
 #content {
-  margin: auto;
   position: relative;
   width: 640px;
+  height: 480px;
+  margin: 20px auto;
 }
 
-#bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
+#bg { position: absolute; top: 0; left: 0; }
 
 #ball {
   position: absolute;
   transition: all 1s ease-in;
 }
 
-.instant {
-  transition: none !important;
-}
+.instant { transition: none !important; }
 
 .h1 { top: 80px; }
 .h2 { top: 120px; }
@@ -37,28 +30,10 @@ body {
 
 .hidden { opacity: 0; }
 
-.a1 {
-  top: 70px;
-  left: 190px;
-}
-
-#x1 {
-  position: absolute;
-  top: 145px;
-  left: 162px;
-}
-
-#x2 {
-  position: absolute;
-  top: 265px;
-  left: 282px;
-}
-
-#x3 {
-  position: absolute;
-  top: 145px;
-  left: 402px;
-}
+#x1, #x2, #x3 { position: absolute; }
+#x1 { top: 145px; left: 162px; }
+#x2 { top: 265px; left: 282px; }
+#x3 { top: 145px; left: 402px; }
 
 .left { transform: rotate(-45deg); }
 .right { transform: rotate(45deg); }
@@ -72,9 +47,9 @@ body {
 }
 
 .pivot {
-  margin: auto;
   width: 5px;
   height: 5px;
+  margin: auto;
   border-radius: 3px;
   background: rgb(60, 35, 75);
 }
@@ -96,27 +71,9 @@ body {
   cursor: auto;
 }
 
-#a {
-  top: 20px;
-  left: 175px;
-}
+#a { top: 20px; left: 175px; }
+#b { top: 20px; left: 415px; }
 
-#b {
-  top: 20px;
-  left: 415px;
-}
-
-#flip1 {
-  top: 165px;
-  left: 175px;
-}
-
-#flip2 {
-  top: 285px;
-  left: 295px;
-}
-
-#flip3 {
-  top: 165px;
-  left: 415px;
-}
+#flip1 { top: 165px; left: 175px; }
+#flip2 { top: 285px; left: 295px; }
+#flip3 { top: 165px; left: 415px; }
